@@ -155,7 +155,9 @@ int afficher_plateau(game *g, int spectate_only)
 
     /* Affichage du plateau pour le joueur 1 */
 
-    snprintf(buffer_player_1, sizeof(buffer_player_1), "%s (%d)\n", g->players[0]->pseudo, g->score[0]);
+    snprintf(buffer_player_1, sizeof(buffer_player_1), "\nPARTIE %d\n", g->id);
+
+    snprintf(buffer_player_1 + strlen(buffer_player_1), sizeof(buffer_player_1) - strlen(buffer_player_1), "%s (%d)\n", g->players[0]->pseudo, g->score[0]);
     for (int i = 5; i >= 0; i--)
     {
         snprintf(buffer_player_1 + strlen(buffer_player_1), sizeof(buffer_player_1) - strlen(buffer_player_1), " %2d ", g->plateau[i]);
@@ -165,10 +167,12 @@ int afficher_plateau(game *g, int spectate_only)
     {
         snprintf(buffer_player_1 + strlen(buffer_player_1), sizeof(buffer_player_1) - strlen(buffer_player_1), " %2d ", g->plateau[i]);
     }
-    snprintf(buffer_player_1 + strlen(buffer_player_1), sizeof(buffer_player_1) - strlen(buffer_player_1), "\n%s (%d)\n", g->players[1]->pseudo, g->score[1]);
+    snprintf(buffer_player_1 + strlen(buffer_player_1), sizeof(buffer_player_1) - strlen(buffer_player_1), "\n%s (%d)\n\n", g->players[1]->pseudo, g->score[1]);
 
     /* Affichage du plateau pour le joueur 2 */
-    snprintf(buffer_player_2, sizeof(buffer_player_2), "%s (%d)\n", g->players[1]->pseudo, g->score[1]);
+    snprintf(buffer_player_2, sizeof(buffer_player_2), "\nPARTIE %d\n", g->id);
+
+    snprintf(buffer_player_2 + strlen(buffer_player_2), sizeof(buffer_player_2) - strlen(buffer_player_2), "%s (%d)\n", g->players[1]->pseudo, g->score[1]);
     for (int i = 11; i >= 6; i--)
     {
         snprintf(buffer_player_2 + strlen(buffer_player_2), sizeof(buffer_player_2) - strlen(buffer_player_2), " %2d ", g->plateau[i]);
@@ -178,7 +182,7 @@ int afficher_plateau(game *g, int spectate_only)
     {
         snprintf(buffer_player_2 + strlen(buffer_player_2), sizeof(buffer_player_2) - strlen(buffer_player_2), " %2d ", g->plateau[i]);
     }
-    snprintf(buffer_player_2 + strlen(buffer_player_2), sizeof(buffer_player_2) - strlen(buffer_player_2), "\n%s (%d)\n", g->players[0]->pseudo, g->score[0]);
+    snprintf(buffer_player_2 + strlen(buffer_player_2), sizeof(buffer_player_2) - strlen(buffer_player_2), "\n%s (%d)\n\n", g->players[0]->pseudo, g->score[0]);
 
     /* Envoie du plateau aux deux joueurs */
     if (spectate_only == 0)
@@ -215,7 +219,7 @@ void *gestion_client(void *arg)
         }
         essais++;
 
-        /* Lectures AVANT de prendre le mutex */
+        /* Lectures avant mutex */
         if (demander(newsockfd, "Entrez votre pseudo : ", pseudo, sizeof(pseudo)) < 0 ||
             demander(newsockfd, "Entrez votre mot de passe : ", mot_de_passe, sizeof(mot_de_passe)) < 0)
         {
@@ -600,7 +604,7 @@ void *gestion_client(void *arg)
                 continue;
             }
 
-            /* CORRECTION : Retrouver l'index du joueur actuel dans state->players */
+            /* Retrouver l'index du joueur actuel dans state->players */
             int joueur_index = -1;
             for (int i = 0; i < state->count_players; i++)
             {

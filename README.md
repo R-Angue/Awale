@@ -66,6 +66,8 @@ Un joueur peut recevoir plusieurs défis en même temps (20 maximum) et choisit 
 | `unspectate <id>` | Arrête de regarder une partie |
 | `review <id>` | Affiche l'historique des coups d'une partie |
 
+Un joueur peut participer à plusieurs parties en même temps.
+
 ## Règles
 
 - 12 cases, 4 graines dans chacune au départ. Le joueur 1 possède les cases 0 à 5, le joueur 2 les cases 6 à 11.
@@ -90,6 +92,7 @@ moi (score)
 ```
 
 Les spectateurs voient la partie du point de vue du joueur 1.
+Lorsqu'un joueur fait un coup, il doit précisé la case qu'il souhaite jouer. Cette case est de son coté du terrain et est comprise entre 0 et 5 (de la gauche vers la droite).
 
 ## Limites
 
