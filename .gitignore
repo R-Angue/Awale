@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!README.md
+!Makefile
+!awaleV2_serveur.c
+!awale_client.c
